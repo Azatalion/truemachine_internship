@@ -1,13 +1,17 @@
 @extends('layouts.app')
 
+@section('title', $product->name)
+
 @section('content')
 <div class="container">
         <div class="card">
-            <div class="card-header">{{ $product->name }} </div>
+            <img class="card-img-top" src="..." alt="Card image cap">
             <div class="card-body">
-                <div class="navbar-brand">
-                    {{ $product->description }}
-                </div>
+                <h5 class="card-title">{{ $product->name }}</h5>
+                <p>{{ $product->description}}</p>
+            </div>
+            <div class="card-body">
+                <a class="card-link" href="{{route('category', $product->category->code)}}">{{ $product->category->name }}</a>
             </div>
         </div>
     </div>
