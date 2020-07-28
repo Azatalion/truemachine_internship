@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container">
-        <div class="card">
+        <div class="card mx-auto" style="width: 47rem;">
             <div class="card-header">
                 @isset($product)
                     Редактировать товар <b>{{ $product->name }}</b>
@@ -55,10 +55,10 @@
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}"
                                                 @isset($product)
-                                                @if($product->category_id == $category->id)
-                                                selected
-                                            @endif
-                                            @endisset
+                                                    @if($product->category_id == $category->id)
+                                                        selected
+                                                    @endif
+                                                @endisset
                                         >{{ $category->name }}</option>
                                     @endforeach
                                 </select>

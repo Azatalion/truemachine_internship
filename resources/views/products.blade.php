@@ -7,14 +7,21 @@
         <div class="card"> 
             <div class="card-header">{{ 'Все товары' }} </div>
             <div class="card-body">
-                @foreach($products as $product)
-                    <div class="navbar-brand">
-                        <img class="card-img-top" src="..." alt="Card image cap">
-                        <a href="{{ route('product', [$product->category->code, $product->code]) }}">
-                            {{ $product->name }}
-                        </a>
-                    </div>
-                @endforeach
+                <div class="row">
+                    @foreach($products as $product)
+                        <div class="col-sm-4">
+                            <div class="card" style="width: 17rem;">
+                                <img class="card-img-top" src="{{ Storage::url($product->image)}}" height="240px">
+                                <div class="card-footer">
+                                    <a href="{{ route('product', [$product->category->code, $product->code]) }}">
+                                        {{ $product->name }}
+                                    </a>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

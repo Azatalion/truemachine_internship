@@ -11,8 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
+
 
 
     <!-- Fonts -->
@@ -21,22 +21,26 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
+    
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ route('home') }}">
-                    {{ 'Профиль' }}
-                </a>
-                <a class="navbar-brand" href="{{ route('categories') }}">
-                    {{ 'Категории' }}
-                </a>
-                <a class="navbar-brand" href="{{ route('products') }}">
-                    {{ 'Товары' }}
-                </a>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <a class="btn btn-secondary active" href="{{ route('home') }}" >
+                        <input type="radio" name="options" id="option1" autocomplete="off">
+                        {{ 'Профиль' }}
+                    </a>
+                    <a class="btn btn-secondary active" href="{{ route('categories') }}">
+                        <input type="radio" name="options" id="option2" autocomplete="off">
+                        {{ 'Категории' }}
+                    </a>
+                    <a class="btn btn-secondary active"href="{{ route('products') }}">
+                        <input type="radio" name="options" id="option3" autocomplete="off">
+                        {{ 'Товары' }}
+                    </a>
+                </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

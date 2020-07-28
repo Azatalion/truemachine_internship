@@ -5,8 +5,8 @@
 @section('content')
 <div class="container">
         <div class="card">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
+            <img class="rounded mx-auto d-block" src="{{ Storage::url($product->image)}}" alt="Card image cap" width="440px">
+            <div class="card-footer">
                 <h5 class="card-title">{{ $product->name }}</h5>
                 <p>{{ $product->description}}</p>
             </div>
