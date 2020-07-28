@@ -7,14 +7,15 @@
         <div class="card">
             <div class="card-header">{{ 'Список категорий' }} </div>
             <div class="card-body">
-                @foreach($categories as $category)
-                    <div class="navbar-brand">
-                        <img class="card-img-top" src="..." alt="Card image cap">
-                        <a href="{{ route('category', $category->code) }}">
-                            {{ $category->name }}
-                        </a>
-                    </div>
-                @endforeach
+                <ul class="list-group list-group-flush">
+                    @foreach($categories as $category)
+                        <li class="list-group-item">
+                            <a href="{{ route('category', $category->code) }}">
+                                {{ $category->name }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
         </div>
     </div>

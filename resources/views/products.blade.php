@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <div class="card">
+        <div class="card"> 
             <div class="card-header">{{ 'Все товары' }} </div>
             <div class="card-body">
                 @foreach($products as $product)

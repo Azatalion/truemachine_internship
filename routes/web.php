@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group([
+    'middleware' => ['auth', 'is_admin'],
+    'namespace' => 'Admin',
+    'prefix' => 'admin',
+],   function() {
+        Route::resource('products', 'ProductController');
+});
+
 Route::get('/categories', 'Controller@categories')->name('categories');
 Route::get('/categories/{category}', 'Controller@category')->name('category');
 Route::get('/categories/{category}/{product}', 'Controller@product')->name('product');
@@ -21,3 +29,4 @@ Route::get('/products', 'Controller@products')->name('products');
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
