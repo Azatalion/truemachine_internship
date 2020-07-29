@@ -12,8 +12,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/jquery.js') }}"></script>
-
-
+    <script src="{{ asset('js/select.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,6 +20,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/select.css') }}" rel="stylesheet">
     
 </head>
 <body>
@@ -93,7 +93,11 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                <div class="card mx-auto" style="width: 70rem;">
+                    @yield('content')
+                </div>
+            </div>
         </main>
     </div>
 </body>

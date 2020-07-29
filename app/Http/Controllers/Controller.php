@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
+use Illuminate\Http\Request;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -25,11 +26,17 @@ class Controller extends BaseController
 
     public function category($code) {
         $category = Category::where('code', $code)->first();
+        $category->setRelation('products', $category->products()->paginate(6));
         return view ('category', compact('category'));
     }
 
-    public function products() {
-        $products = Product::get();
-        return view ('products', compact('products'));
+    public function products(Request $request) {
+        $productsQuery = Product::query();
+        if ($request->filled('categories') && $request->categories != 0) {
+            $productsQuery->where('category_id', $request->categories);
+        }
+        $products = $productsQuery->paginate(6);
+        $categories = Category::get();
+        return view ('products', compact('products', 'categories'));
     }
 }
