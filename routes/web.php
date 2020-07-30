@@ -17,7 +17,7 @@ Route::group([
     'middleware' => ['auth', 'is_admin'],
     'namespace' => 'Admin',
     'prefix' => 'admin',
-],   function() {
+    ], function() {
         Route::resource('products', 'ProductController');
 });
 

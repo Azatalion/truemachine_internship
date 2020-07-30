@@ -32,11 +32,18 @@ class Controller extends BaseController
 
     public function products(Request $request) {
         $productsQuery = Product::query();
-        if ($request->filled('categories') && $request->categories != 0) {
-            $productsQuery->where('category_id', $request->categories);
+        if ($request->route()->named('products')) 
+        {
+            if ($request->filled('categories') && $request->categories != 0) {
+                $productsQuery->where('category_id', $request->categories);
+            }
+            $products = $productsQuery->paginate(6);
+            $categories = Category::get();
+            return view ('products', compact('products', 'categories'));
         }
-        $products = $productsQuery->paginate(6);
-        $categories = Category::get();
-        return view ('products', compact('products', 'categories'));
+        else {
+            $products = Product::get();
+            return response()->json(compact('products'),200);
+        }
     }
 }
