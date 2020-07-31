@@ -32,10 +32,6 @@
                         <input type="radio" name="options" id="option1" autocomplete="off">
                         {{ 'Профиль' }}
                     </a>
-                    <a class="btn btn-secondary active" href="{{ route('categories') }}">
-                        <input type="radio" name="options" id="option2" autocomplete="off">
-                        {{ 'Категории' }}
-                    </a>
                     <a class="btn btn-secondary active"href="{{ route('products') }}">
                         <input type="radio" name="options" id="option3" autocomplete="off">
                         {{ 'Товары' }}

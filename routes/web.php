@@ -14,17 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group([
-    'middleware' => ['auth', 'is_admin'],
+    'middleware' => ['auth', 'isAdmin'],
     'namespace' => 'Admin',
     'prefix' => 'admin',
     ], function() {
         Route::resource('products', 'ProductController');
 });
 
-Route::get('/categories', 'Controller@categories')->name('categories');
-Route::get('/categories/{category}', 'Controller@category')->name('category');
-Route::get('/categories/{category}/{product}', 'Controller@product')->name('product');
-Route::get('/products', 'Controller@products')->name('products');
+Route::get('/categories/{category}/{product}', 'MainController@product')->name('product');
+Route::get('/products', 'MainController@products')->name('products');
 
 Auth::routes();
 

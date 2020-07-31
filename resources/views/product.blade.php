@@ -9,6 +9,6 @@
         <p>{{ $product->description}}</p>
     </div>
     <div class="card-body">
-        <a class="card-link" href="{{route('category', $product->category->code)}}">{{ $product->category->name }}</a>
+        <p class="card-link">Категория {{ $product->category->name }}</p>
     </div>
 @endsection

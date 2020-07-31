@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('register', 'UserController@register');
-Route::post('login', 'UserController@authenticate');
+Route::post('register', 'ApiController@register');
+Route::post('login', 'ApiController@authenticate');
 
 Route::group(['middleware' => ['jwt.verify']], 
     function() {
-        Route::get('user', 'UserController@getAuthenticatedUser');
-        Route::get('products', 'Controller@products')->name('api_products');
+        Route::get('user', 'ApiController@getAuthenticatedUser');
+        Route::get('products', 'ApiController@products')->name('api_products');
+        Route::get('/categories/{category}/{product}', 'ApiController@product')->name('api_products');
 });
