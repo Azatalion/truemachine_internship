@@ -17,7 +17,7 @@ class UserController extends Controller
 
             try {
                 if (!$token = JWTAuth::attempt($credentials)) {
-                    return response()->json(['error' => 'invalid_credentials'], 400);
+                    return response()->json(['error' => 'invalid_credentials'], 401);
                 }
             } catch (JWTException $e) {
                 return response()->json(['error' => 'could_not_create_token'], 500);
@@ -34,7 +34,7 @@ class UserController extends Controller
                 'password' => 'required|string|min:6|confirmed',
             ]);
             if($validator->fails()){
-                return response()->json($validator->errors()->toJson(), 400);
+                return response()->json($validator->errors()->toJson(), 401);
             }
 
             $user = User::create([
