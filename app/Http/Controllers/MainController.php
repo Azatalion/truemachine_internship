@@ -16,7 +16,7 @@ class MainController extends Controller
 
     public function products(Request $request) 
     {
-        $productsQuery = Product::query();
+        $productsQuery = Product::query()->with('category');
         if ($request->filled('categories') && $request->categories != 0) {
             $productsQuery->where('category_id', $request->categories);
         }

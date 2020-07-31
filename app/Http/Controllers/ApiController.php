@@ -71,7 +71,7 @@ class ApiController extends Controller
 
     public function products(Request $request) 
     {        
-        $products = Product::get();
+        $products = Product::with('category')->get();
         return response()->json(compact('products'), 200);
     }
 

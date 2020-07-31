@@ -49,11 +49,11 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
-    <div class="card-footer"> 
-        <a class="btn btn-success" type="button" href="{{ route('products.create') }}">Добавить товар</a>
         <div class="d-flex justify-content-center">
-                {{ $products->links() }}
+            {{ $products->links() }}
         </div>
+    </div>
+    <div class="card-footer" style="width: 70rem;"> 
+        <a class="btn btn-success" type="button" href="{{ route('products.create') }}">Добавить товар</a>
     </div>  
 @endsection
