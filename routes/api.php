@@ -20,5 +20,5 @@ Route::post('login', 'UserController@authenticate');
 Route::group(['middleware' => ['jwt.verify']], 
     function() {
         Route::get('user', 'UserController@getAuthenticatedUser');
-        Route::get('products', 'Controller@products')->name('api.products');
+        Route::get('products', 'Controller@products')->name('api_products');
 });
