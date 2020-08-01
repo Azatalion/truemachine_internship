@@ -20,7 +20,6 @@ class CreateProducts extends Migration
             $table->string('code');
             $table->text('description')->nullable();
             $table->text('image')->nullable();
-            $table->integer('category_id');
         });
     }
 
