@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductRequest;   
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ProductRequest;
 use App\Product;
 use App\Category;
 
-class ProductController extends Controller
+class ApiProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +17,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->paginate(6);
-        return view ('admin.products', compact('products'));
+        $products = Product::with('category')->get();
+        return response()->json(compact('products'));
     }
 
     /**
@@ -29,8 +28,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::get();
-        return view ('admin.product_form', compact('categories'));
+        //
     }
 
     /**
@@ -47,61 +45,66 @@ class ProductController extends Controller
             $params['image'] = $path;
         }
         Product::create($params);
-        return redirect()->route('products.index');
+        $products = Product::with('category')->get();
+        return response()->json(compact('products'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($code)
     {
-        //
+        $product = Product::where('code', $code)->get();
+        return response()->json(compact('product'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        $categories = Category::get();
-        return view ('admin.product_form', compact('product', 'categories'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductRequest $request, $code)
     {
-        $params = $request->all();
+        $params = $request->only('code', 'name', 'category_id', 'description');
         unset($params['image']);
         if ($request->has('image')) {
             Storage::delete($product->image);
             $path = $request->file('image')->store('products');
             $params['image'] = $path;
         }
+        $product = Product::where('code', $code);
         $product->update($params);
-        return redirect()->route('products.index');
+        $products = Product::with('category')->get();
+        return response()->json(compact('products'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($code)
     {
+        $product = Product::where('code', $code);
         $product->delete();
-        return redirect()->route('products.index');
+        $products = Product::with('category')->get();
+        return response()->json(compact('products'));
     }
 }

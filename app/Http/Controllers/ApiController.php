@@ -48,7 +48,7 @@ class ApiController extends Controller
 
         $token = JWTAuth::fromUser($user);
 
-        return response()->json(compact('user','token'),201);
+        return response()->json(compact('user','token'), 201);
     }
 
     public function getAuthenticatedUser()
@@ -58,12 +58,11 @@ class ApiController extends Controller
                 return response()->json(['user_not_found'], 404);
             }
         } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-                return response()->json(['token_expired'], $e->getStatusCode());
+            return response()->json(['token_expired'], $e->getStatusCode());
         } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-                return response()->json(['token_invalid'], $e->getStatusCode());
+            return response()->json(['token_invalid'], $e->getStatusCode());
         } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-                return response()->json(['token_absent'], $e->getStatusCode());
-
+            return response()->json(['token_absent'], $e->getStatusCode());
         }
 
         return response()->json(compact('user'));
@@ -72,12 +71,12 @@ class ApiController extends Controller
     public function products(Request $request) 
     {        
         $products = Product::with('category')->get();
-        return response()->json(compact('products'), 200);
+        return response()->json(compact('products'));
     }
 
     public function product($categoryCode, $productCode) 
     {
         $product = Product::where('code', $productCode)->first();
-        return response()->json(compact('product'), 200);
+        return response()->json(compact('product'));
     }
 }

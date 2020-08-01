@@ -21,5 +21,13 @@ Route::group(['middleware' => ['jwt.verify']],
     function() {
         Route::get('user', 'ApiController@getAuthenticatedUser');
         Route::get('products', 'ApiController@products')->name('api_products');
-        Route::get('/categories/{category}/{product}', 'ApiController@product')->name('api_products');
+        Route::get('/categories/{category}/{product}', 'ApiController@product')->name('api_product');
+});
+
+Route::group([
+    'middleware' => ['jwt.verify', 'isAdmin'],
+    'namespace' => 'Admin',
+    'prefix' => 'admin',
+    ], function() {
+        Route::resource('products', 'ApiProductController', ['as' => 'api' ]);
 });
