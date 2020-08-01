@@ -8,15 +8,15 @@ use App\Product;
 
 class MainController extends Controller
 {
-    public function product($categoryCode, $productCode) 
+    public function product($code) 
     {
-        $product = Product::where('code', $productCode)->first();
+        $product = Product::where('code', $code)->first();
         return view ('product', compact('product'));
     }
 
     public function products(Request $request) 
     {
-        $productsQuery = Product::query()->with('category');
+        $productsQuery = Product::query()->with('categories');
         if ($request->filled('categories') && $request->categories != 0) {
             $productsQuery->where('category_id', $request->categories);
         }

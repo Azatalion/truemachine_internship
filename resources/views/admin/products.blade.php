@@ -17,7 +17,7 @@
                         Название
                     </th>
                     <th>
-                        Категория
+                        Категории
                     </th>
                     <th>
                         Действия
@@ -28,11 +28,15 @@
                         <td>{{ $product->id}}</td>
                         <td>{{ $product->code }}</td>
                         <td>
-                            <a href="{{ route('product', [$product->category->code, $product->code]) }}">
+                            <a href="{{ route('product', $product->code) }}">
                                 {{ $product->name }}
                             </a>
                         </td>
-                        <td>{{ $product->category->name }}</td>
+                        <td>
+                            @foreach($product->categories as $category)
+                                {{ $category->name.'; ' }}
+                            @endforeach
+                        </td>
                         <td>
                             <div class="btn-group" role="group">
                                 <form action="{{ route('products.destroy', $product) }}" method="POST">

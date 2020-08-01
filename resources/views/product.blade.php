@@ -9,6 +9,9 @@
         <p>{{ $product->description}}</p>
     </div>
     <div class="card-body">
-        <p class="card-link">Категория {{ $product->category->name }}</p>
+        <p class="card-link">Категории:</p>
+        @foreach ($product->categories as $category)
+            {{ $category->name.'; ' }}
+        @endforeach
     </div>
 @endsection

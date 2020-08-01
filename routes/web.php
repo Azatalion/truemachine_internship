@@ -21,7 +21,7 @@ Route::group([
         Route::resource('products', 'ProductController');
 });
 
-Route::get('/categories/{category}/{product}', 'MainController@product')->name('product');
+Route::get('/products/{product}', 'MainController@product')->name('product');
 Route::get('/products', 'MainController@products')->name('products');
 
 Auth::routes();

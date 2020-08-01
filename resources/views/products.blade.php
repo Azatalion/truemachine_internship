@@ -27,7 +27,7 @@
                     <div class="card" style="width: 17rem;">
                         <img class="card-img-top" src="{{ Storage::url($product->image)}}" height="240px">
                         <div class="card-footer">
-                            <a href="{{ route('product', [$product->category->code, $product->code]) }}">
+                            <a href="{{ route('product', $product->code) }}">
                                 {{ $product->name }}
                             </a>
                         </div>
