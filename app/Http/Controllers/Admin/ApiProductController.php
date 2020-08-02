@@ -17,7 +17,7 @@ class ApiProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->get();
+        $products = Product::with('categories')->get();
         return response()->json(compact('products'));
     }
 
@@ -49,7 +49,7 @@ class ApiProductController extends Controller
         foreach($request->only('category_id') as $category_id) 
             $product->categories()->attach($category_id);
 
-        $products = Product::with('category')->get();
+        $products = Product::with('categories')->get();
         return response()->json(compact('products'));
     }
 
@@ -83,7 +83,7 @@ class ApiProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductRequest $request, $code)
     {
         $params = $request->only('code', 'name', 'description', 'image');
         unset($params['image']);
@@ -92,6 +92,7 @@ class ApiProductController extends Controller
             $path = $request->file('image')->store('products');
             $params['image'] = $path;
         }
+        $product = Product::where('code', $code)->first();
         $product->update($params);
 
         $product->categories()->detach();
@@ -99,7 +100,7 @@ class ApiProductController extends Controller
         foreach($request->only('category_id') as $category_id) 
             $product->categories()->attach($category_id);
 
-        $products = Product::with('category')->get();
+        $products = Product::with('categories')->get();
         return response()->json(compact('products'));
     }
 
@@ -109,12 +110,13 @@ class ApiProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($code)
     {
+        $product = Product::where('code', $code)->first();
         $product->categories()->detach();
         $product->delete();
-        
-        $products = Product::with('category')->get();
+
+        $products = Product::with('categories')->get();
         return response()->json(compact('products'));
     }
 }

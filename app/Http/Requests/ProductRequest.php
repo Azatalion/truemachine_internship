@@ -62,7 +62,7 @@ class ProductRequest extends FormRequest
             'category_id.*' => 'integer',
         ];
 
-        if ($this->route()->named('products.store')) {
+        if ($this->route()->named('products.store') || $this->route()->named('api.products.store')) {
             $rules['code'] .= '|unique:products,code';
         }
 
