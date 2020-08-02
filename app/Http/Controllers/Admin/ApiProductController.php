@@ -94,11 +94,7 @@ class ApiProductController extends Controller
         }
         $product = Product::where('code', $code)->first();
         $product->update($params);
-
-        $product->categories()->detach();
-
-        foreach($request->only('category_id') as $category_id) 
-            $product->categories()->attach($category_id);
+        $product->categories()->sync($request->only('category_id')['category_id']);
 
         $products = Product::with('categories')->get();
         return response()->json(compact('products'));

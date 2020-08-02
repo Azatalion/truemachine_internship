@@ -94,18 +94,7 @@ class ProductController extends Controller
             $params['image'] = $path;
         }
         $product->update($params);
-
-        $product->categories()->detach();
-
-        foreach($request->only('category_id') as $category_id) 
-            $product->categories()->attach($category_id);
-
-        // $ids = $product->categories()->allRelatedIds();
-        // $category_ids = $request->only('category_id')['category_id'];
-        // foreach ($ids as $id) {
-        //     foreach($category_ids as $category_id)
-        //         $product->categories()->updateExistingPivot($id, ['category_id' => $category_id]);
-        // }
+        $product->categories()->sync($request->only('category_id')['category_id']);
 
         return redirect()->route('products.index');
     }
