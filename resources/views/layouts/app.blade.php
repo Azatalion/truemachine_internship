@@ -28,10 +28,12 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <a class="btn btn-secondary active" href="{{ route('home') }}" >
-                        <input type="radio" name="options" id="option1" autocomplete="off">
-                        {{ 'Профиль' }}
-                    </a>
+                    @can('show profile')
+                        <a class="btn btn-secondary active" href="{{ route('home') }}" >
+                            <input type="radio" name="options" id="option1" autocomplete="off">
+                            {{ 'Профиль' }}
+                        </a>
+                    @endcan
                     <a class="btn btn-secondary active"href="{{ route('products') }}">
                         <input type="radio" name="options" id="option3" autocomplete="off">
                         {{ 'Товары' }}
@@ -60,11 +62,11 @@
                                 </li>
                             @endif
                         @else
-                            @if (Auth::user()->isAdmin)
+                            @can ('show admin panel')
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('products.index') }}">{{ 'Панель администратора' }}</a>
                                 </li>
-                            @endif
+                            @endcan
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -72,8 +74,8 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
                                         {{ __('Выйти') }}
                                     </a>
 

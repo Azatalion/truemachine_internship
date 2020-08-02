@@ -13,13 +13,25 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
-        $codeName = $faker->word();
 
         DB::table('categories')->insert([
-            'id' => Category::max('id') + 1,
-            'name' => $codeName,
-            'code' => $codeName,
+            'id' => 1,
+            'name' => 'Процессоры',
+        ]);
+
+        DB::table('categories')->insert([
+            'id' => 2,
+            'name' => 'Видеокарты',
+        ]);
+
+        DB::table('categories')->insert([
+            'id' => 3,
+            'name' => 'Материнские платы',
+        ]);
+
+        DB::table('categories')->insert([
+            'id' => 4,
+            'name' => 'Компьютерные комплектующие',
         ]);
     }
 }

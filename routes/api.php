@@ -25,7 +25,7 @@ Route::group(['middleware' => ['jwt.verify']],
 });
 
 Route::group([
-    'middleware' => ['jwt.verify', 'isAdmin'],
+    'middleware' => ['jwt.verify', 'role:admin'],
     'namespace' => 'Admin',
     'prefix' => 'admin',
     ], function() {
