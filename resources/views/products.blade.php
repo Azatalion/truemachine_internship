@@ -8,12 +8,21 @@
             <div class="row">
                 <div class="col-sm-4">
                     <select class="form-control" name="categories" id="categories">
-                        <option value="0">Все категории</option>
+                        <option value="0" @if (app('request')->input('categories') == 0) selected @endif>Все категории</option>
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}">
+                            <option value="{{ $category->id }}" @if (app('request')->input('categories') == $category->id) selected @endif>
                                 {{ $category->name }}
                             </option>
                         @endforeach
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <select class="form-control" name="orders" id="orders">
+                        <option value="0" @if (app('request')->input('orders') == 0) selected @endif>Не сортировать</option>
+                        <option value="1" @if (app('request')->input('orders') == 1) selected @endif>Сортировать по возрастанию средней оценки</option>
+                        <option value="2" @if (app('request')->input('orders') == 2) selected @endif>Сортировать по убыванию средней оценки</option>
+                        <option value="3" @if (app('request')->input('orders') == 3) selected @endif>Сортировать по возрастанию количества отзывов</option>
+                        <option value="4" @if (app('request')->input('orders') == 4) selected @endif>Сортировать по убыванию средней оценки</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Показать</button>
@@ -30,6 +39,13 @@
                             <a href="{{ route('product', $product->code) }}">
                                 {{ $product->name }}
                             </a>
+                            <p>
+                                @if ($product->averrageMark() == 0)
+                                    Товар пока никто не оценил.
+                                @else
+                                    {{ 'Средняя оценка: '.$product->averrageMark() }}
+                                @endif
+                            </p>
                         </div>
                     </div>
                     <br>

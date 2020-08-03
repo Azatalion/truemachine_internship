@@ -59,7 +59,6 @@ class ProductRequest extends FormRequest
             'name' => 'required|min:3|max:255',
             'description' => 'required|min:5',
             'category_id' => 'required|numeric_array|min_array|max_array',
-            'category_id.*' => 'integer',
         ];
 
         if ($this->route()->named('products.store') || $this->route()->named('api.products.store')) {

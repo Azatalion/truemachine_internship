@@ -25,7 +25,7 @@ class CreateRoles extends Seeder
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'user']);
-        $role1->givePermissionTo('show profile');
+        $role1->givePermissionTo('show profile', 'add review');
 
         $role2 = Role::create(['name' => 'admin']);
         $role2->givePermissionTo('show profile', 'create products', 'edit products', 'delete products', 'show admin panel');
