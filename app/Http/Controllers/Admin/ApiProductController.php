@@ -40,7 +40,6 @@ class ApiProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        return response()->json($request->file('image'));
         $product = new Product($request->only('code', 'name', 'description', 'image'));
         if ($request->file('image') != null) {
             $path = $request->file('image')->store('products');
@@ -87,7 +86,6 @@ class ApiProductController extends Controller
      */
     public function update(ProductRequest $request, $code)
     {
-        //return response()->json($request->all());
         $product = Product::where('code', $code)->first();
         $params = $request->only('code', 'name', 'description', 'image');
         unset($params['image']);
