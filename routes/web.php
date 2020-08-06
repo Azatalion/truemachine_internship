@@ -17,8 +17,8 @@ Route::group([
     'middleware' => ['auth', 'role:admin'],
     'namespace' => 'Admin',
     'prefix' => 'admin',
-], function() {
-    Route::resource('products', 'ProductController');
+    ], function() {
+        Route::resource('products', 'ProductController');
 });
 
 Route::get('/products/{product}', 'MainController@product')->name('product');
@@ -26,7 +26,7 @@ Route::get('/products', 'MainController@products')->name('products');
 
 Route::group([
     'middleware' => ['role:user', 'hasReview'],
-], function() {
+    ], function() {
     Route::get('/products/{product}/review', 'ReviewController@product_review')->name('product.review');
     Route::post('/products/{product}/review', 'ReviewController@add_review')->name('review.add');
 });

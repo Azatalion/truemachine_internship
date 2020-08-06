@@ -33,7 +33,7 @@
             @foreach ($product->reviews as $review)
                 <div class="card">
                     <div class="card-header">
-                        {{ $review->user_name }}
+                        <h5> {{ $review->user_name }} </h5>
                     </div>  
                     <div class="card-body">
                         {{ $review->text }}

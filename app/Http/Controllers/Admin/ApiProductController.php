@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Product;
 use App\Category;
@@ -34,11 +35,12 @@ class ApiProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  ProductRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ProductRequest $request)
     {
+        return response()->json($request->file('image'));
         $product = new Product($request->only('code', 'name', 'description', 'image'));
         if ($request->file('image') != null) {
             $path = $request->file('image')->store('products');
@@ -79,12 +81,14 @@ class ApiProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  ProductRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(ProductRequest $request, $code)
     {
+        //return response()->json($request->all());
+        $product = Product::where('code', $code)->first();
         $params = $request->only('code', 'name', 'description', 'image');
         unset($params['image']);
         if ($request->has('image')) {
@@ -92,7 +96,6 @@ class ApiProductController extends Controller
             $path = $request->file('image')->store('products');
             $params['image'] = $path;
         }
-        $product = Product::where('code', $code)->first();
         $product->update($params);
         $product->categories()->sync($request->only('category_id')['category_id']);
 
