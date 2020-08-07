@@ -17,7 +17,7 @@ class ReviewController extends Controller
         return view ('product_review', compact('product'));
     }
 
-    public function add_review($code, ReviewRequest $request) 
+    public function addReview($code, ReviewRequest $request) 
     {
         $params = ['text' => $request->only('text')['text'],
             'mark' => $request->only('mark')['mark'],
