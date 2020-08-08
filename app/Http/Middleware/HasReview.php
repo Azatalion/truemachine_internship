@@ -19,9 +19,9 @@ class HasReview
     public function handle($request, Closure $next)
     {
         $product = Product::where('code', $request->product)->first();
-        if ($product->reviews->contains('user_name', Auth::user()->name))
+        if ($product->reviews->contains('user_name', Auth::user()->name)) {
             return redirect()->route('product', $request->product);
-        
+        }
         return $next($request);
     }
 }

@@ -40,10 +40,10 @@
                                 {{ $product->name }}
                             </a>
                             <p>
-                                @if ($product->averrageMark() == 0)
+                                @if ($product->averageMark() == 0)
                                     Товар пока никто не оценил.
                                 @else
-                                    {{ 'Средняя оценка: '.$product->averrageMark() }}
+                                    {{ 'Средняя оценка: '.$product->averageMark() }}
                                 @endif
                             </p>
                         </div>

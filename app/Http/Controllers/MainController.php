@@ -21,7 +21,7 @@ class MainController extends Controller
 
     public function products(Request $request) 
     {
-        $productsQuery;
+        $productsQuery = null;
 
         if ($request->categories != 0) {
             $onwerIds = (int)$request->categories;
