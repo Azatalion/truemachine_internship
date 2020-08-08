@@ -70,7 +70,7 @@ class ApiController extends Controller
 
     public function products(Request $request) 
     {        
-        $products = Product::with('categories')->get();
+        $products = Product::with('categories')->paginate(6);
         return response()->json(compact('products'));
     }
 

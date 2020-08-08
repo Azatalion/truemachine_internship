@@ -18,7 +18,7 @@ class ApiProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('categories')->get();
+        $products = Product::with('categories')->paginate(6);
         return response()->json(compact('products'));
     }
 
@@ -50,7 +50,7 @@ class ApiProductController extends Controller
         foreach($request->only('category_id') as $category_id) 
             $product->categories()->attach($category_id);
 
-        $products = Product::with('categories')->get();
+        $products = Product::with('categories')->paginate(6);
         return response()->json(compact('products'));
     }
 
@@ -62,7 +62,7 @@ class ApiProductController extends Controller
      */
     public function show($code)
     {
-        $product = Product::where('code', $code)->get();
+        $product = Product::where('code', $code)->paginate(6);
         return response()->json(compact('product'));
     }
 
@@ -97,7 +97,7 @@ class ApiProductController extends Controller
         $product->update($params);
         $product->categories()->sync($request->only('category_id')['category_id']);
 
-        $products = Product::with('categories')->get();
+        $products = Product::with('categories')->paginate(6);
         return response()->json(compact('products'));
     }
 
@@ -113,7 +113,7 @@ class ApiProductController extends Controller
         $product->categories()->detach();
         $product->delete();
 
-        $products = Product::with('categories')->get();
+        $products = Product::with('categories')->paginate(6);
         return response()->json(compact('products'));
     }
 }
