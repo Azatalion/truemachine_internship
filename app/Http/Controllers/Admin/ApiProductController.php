@@ -47,8 +47,9 @@ class ApiProductController extends Controller
         }
         $product->save();
 
-        foreach($request->only('category_id') as $category_id) 
-            $product->categories()->attach($category_id);
+        foreach($request->only('category_id') as $categoryId) {
+            $product->categories()->attach($categoryId);
+        }
 
         $products = Product::with('categories')->paginate(6);
         return response()->json(compact('products'));
