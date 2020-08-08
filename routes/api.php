@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', 'ApiController@register');
 Route::post('login', 'ApiController@authenticate');
 
-Route::group(['middleware' => ['api']], 
+Route::group(['middleware' => ['auth:api']], 
     function() {
         Route::get('user', 'ApiController@getAuthenticatedUser');
         Route::get('products', 'ApiController@products')->name('api_products');
@@ -25,7 +25,7 @@ Route::group(['middleware' => ['api']],
 });
 
 Route::group([
-    'middleware' => ['api', 'role:admin'],
+    'middleware' => ['auth:api', 'role:admin'],
     'namespace' => 'Admin',
     'prefix' => 'admin',
     ], function() {

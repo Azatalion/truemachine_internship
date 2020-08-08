@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group([
-    'middleware' => ['auth', 'role:admin'],
+    'middleware' => ['role:admin'],
     'namespace' => 'Admin',
     'prefix' => 'admin',
     ], function() {
@@ -27,8 +27,8 @@ Route::get('/products', 'MainController@products')->name('products');
 Route::group([
     'middleware' => ['role:user', 'hasReview'],
     ], function() {
-    Route::get('/products/{product}/review', 'ReviewController@product_review')->name('product.review');
-    Route::post('/products/{product}/review', 'ReviewController@add_review')->name('review.add');
+    Route::get('/products/{product}/review', 'ReviewController@productReview')->name('product.review');
+    Route::post('/products/{product}/review', 'ReviewController@addReview')->name('review.add');
 });
 
 Auth::routes();

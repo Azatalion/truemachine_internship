@@ -11,7 +11,7 @@ use App\Http\Requests\ReviewRequest;
 
 class ReviewController extends Controller
 {
-    public function product_review($code) 
+    public function productReview($code) 
     {
         $product = Product::where('code', $code)->first();
         return view ('product_review', compact('product'));
