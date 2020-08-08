@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -21,17 +22,13 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function averrageMark() 
+    public function averageMark() 
     {
-        $marksSum = 0;
-        $marksCount = 0;
-        foreach ($this->reviews()->get() as $review) {
-            $marksSum += $review->mark;
-            $marksCount++;
-        }
-        if ($marksCount > 0)
-            return $marksSum / $marksCount;
-        return 0;
+        return DB::table('reviews')
+            ->select(DB::raw('round(avg(mark), 2) as average_mark'))
+            ->where('product_id', '=', $this->id)
+            ->first()
+            ->average_mark;
     }
 
     public function reviewsCount() 

@@ -17,7 +17,7 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->text('text');
             $table->smallInteger('mark');
-            $table->string('user_name');
+            $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();

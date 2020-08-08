@@ -13,10 +13,10 @@
             @endforeach
         </p>
         <p>
-            @if ($product->averrageMark() == 0)
+            @if ($product->averageMark() == 0)
                 Товар пока никто не оценил.
             @else
-                {{ 'Средняя оценка: '.$product->averrageMark() }}
+                {{ 'Средняя оценка: '.$product->averageMark() }}
             @endif
         </p>
         @can('add review')
@@ -33,7 +33,7 @@
             @foreach ($product->reviews as $review)
                 <div class="card">
                     <div class="card-header">
-                        <h5> {{ $review->user_name }} </h5>
+                        <h5> {{ $review->user->name }} </h5>
                     </div>  
                     <div class="card-body">
                         {{ $review->text }}
