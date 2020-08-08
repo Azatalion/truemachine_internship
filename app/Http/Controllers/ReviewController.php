@@ -21,8 +21,8 @@ class ReviewController extends Controller
     {
         $params = ['text' => $request->only('text')['text'],
             'mark' => $request->only('mark')['mark'],
-            'product_id' => Product::where('code', $code)->first()->id,
-            'user_name' => Auth::user()->name,
+            'product_id' => Product::where('code', $code)->firstOrFail()->first()->id,
+            'user_id' => Auth::user()->id,
         ];
         Review::create($params);
         return redirect()->route('product', Product::where('code', $code)->first()->code);

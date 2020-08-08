@@ -15,7 +15,7 @@ class AddRoleToUser extends Seeder
      */
     public function run()
     {
-        $role = Role::where('name', 'admin')->first();
+        $role = Role::where('name', 'user')->first();
         $user = User::where('name', 'Test Man')->first();
         $user->assignRole($role);
     }
