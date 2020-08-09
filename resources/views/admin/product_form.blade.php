@@ -71,7 +71,10 @@
                         </select>
                     </div>
                     @error('category_id')
-                        <div class="alert alert-danger p-1">{{ $message }}</div>
+                        <div class="alert alert-danger p-1">{!!$message!!}</div>
+                    @enderror
+                    @error('category_id.*')
+                        <div class="alert alert-danger p-1">{!!$message!!}</div>
                     @enderror
                 </div>
                 <br>

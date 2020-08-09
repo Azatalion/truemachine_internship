@@ -9,6 +9,9 @@ use App\Category;
 class ProductRequest extends FormRequest
 {
 
+    public $min = null;
+    public $max = null;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,30 +29,19 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
+        $this->min = Category::min('id');
+        $this->max = Category::max('id');
         
-        Validator::extend('numeric_array', function($attribute, $value, $parameters)
+        Validator::extend('check_category_id', function($attribute, $value, $parameters)
         {
-            foreach($value as $v) {
-                if(!(int)($v)) 
-                    return false;                
+            if (!(int)$value) {
+                return false;
             }
-            return true;
-        });
-
-        Validator::extend('min_array', function($attribute, $value, $parameters)
-        {
-            foreach($value as $v) {
-                if($v < Category::min('id')) 
-                    return false;                
+            else if ($value < $this->min) {
+                return false;
             }
-            return true;
-        });
-
-        Validator::extend('max_array', function($attribute, $value, $parameters)
-        {
-            foreach($value as $v) {
-                if($v > Category::max('id')) 
-                    return false;                
+            else if ($value > $this->max) {
+                return false;
             }
             return true;
         });
@@ -58,7 +50,8 @@ class ProductRequest extends FormRequest
             'code' => 'required|min:3|max:255',
             'name' => 'required|min:3|max:255',
             'description' => 'required|min:5',
-            'category_id' => 'required|numeric_array|min_array|max_array',
+            'category_id' => 'required',
+            'category_id.*' => 'check_category_id',
         ];
 
         if ($this->route()->named('products.store') || $this->route()->named('api.products.store')) {
@@ -76,9 +69,7 @@ class ProductRequest extends FormRequest
             'description.min' => 'Поле :attribute должно содержать минимум :min символов.',
             'max' => 'Поле :attribute должно содержать максимум :max символа(ов).',
             'unique' => 'Код :input уже используется.',
-            'numeric_array' => 'Поле :attribute может содержать только числовые значения.',
-            'min_array' => 'Поле :attribute не может содержать значения меньше '.Category::min('id').'.',
-            'max_array' => 'Поле :attribute не может содержать значения больше '.Category::max('id').'.',
+            'check_category_id' => 'Поле category_id должно быть<br>числом не меньше '.$this->min.' и не больше '.$this->max.'.',
         ];
     }
 }

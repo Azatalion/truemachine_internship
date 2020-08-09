@@ -32,25 +32,27 @@ class MainController extends Controller
         else
             $productsQuery = Product::query()->with('categories')->get();
 
-        if ($request->orders == 1) {
-            $productsQuery = $productsQuery->sortBy(function($product, $key) {
-                return $product->averrageMark();
-            });
-        }
-        else if ($request->orders == 2) {
-            $productsQuery = $productsQuery->sortByDesc(function($product, $key) {
-                return $product->averrageMark();
-            });
-        }
-        else if ($request->orders == 3) {
-            $productsQuery = $productsQuery->sortBy(function($product, $key) {
-                return $product->reviewsCount();
-            });
-        }
-        else if ($request->orders == 4) {
-            $productsQuery = $productsQuery->sortByDesc(function($product, $key) {
-                return $product->reviewsCount();
-            });
+        switch ($request->orders) {
+            case 1:
+                $productsQuery = $productsQuery->sortBy(function($product, $key) {
+                    return $product->averageMark();
+                });
+                break;
+            case 2:
+                $productsQuery = $productsQuery->sortByDesc(function($product, $key) {
+                    return $product->averageMark();
+                });
+                break;
+            case 3:
+                $productsQuery = $productsQuery->sortBy(function($product, $key) {
+                    return $product->reviewsCount();
+                });
+                break;
+            case 4: 
+                $productsQuery = $productsQuery->sortByDesc(function($product, $key) {
+                    return $product->reviewsCount();
+                });
+                break;
         }
         
         $currentPage = LengthAwarePaginator::resolveCurrentPage();

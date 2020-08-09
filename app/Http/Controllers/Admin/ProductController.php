@@ -48,9 +48,9 @@ class ProductController extends Controller
         }
         $product->save();
 
-        foreach($request->only('category_id') as $category_id) 
-            $product->categories()->attach($category_id);
-
+        foreach($request->only('category_id') as $categoryId) {
+            $product->categories()->attach($categoryId);
+        }
         return redirect()->route('products.index');
     }
 
